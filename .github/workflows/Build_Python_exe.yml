@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ./installResources.sh
-      - run: pyinstaller --onefile program.py
+      - run: pyinstaller.exe --onefile program.py
       - uses: actions/upload-artifact@v3
         with:
           name: program
