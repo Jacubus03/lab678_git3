@@ -2,6 +2,8 @@ import argparse
 import os.path
 import json
 import yaml
+import xml
+import xmltodict
 
 parser = argparse.ArgumentParser(description="Convert file formats.")
 parser.add_argument("file1")
@@ -22,9 +24,20 @@ if( len(args.file1.split("/")[-1].split("\\")[-1].split(".")) == 1 or len(args.f
     exit()
 
 
+def postprocessor(path, key, value):
+    try:
+        return key, int(value)
+    except (ValueError, TypeError):
+        return key, value
+
 match format1:
     case "xml":
-        pass
+        try:
+            with open(args.file1, "r") as r_xml_file:
+                data = list(xmltodict.parse(r_xml_file.read(), postprocessor=postprocessor).values())[0]
+        except xml.parsers.expat.ExpatError as err:
+            print(f"{args.file1.split("/")[-1]}:", err)
+            exit()
     case "json":
         try:
             with open(args.file1, "r") as r_json_file:
