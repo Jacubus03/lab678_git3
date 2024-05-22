@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - run: ./installResources.sh
+      - run: sh ./installResources.sh
       - run: pyinstaller.exe --onefile program.py
       - uses: actions/upload-artifact@v3
         with:
