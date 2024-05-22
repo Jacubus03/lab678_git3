@@ -56,7 +56,8 @@ match format1:
 
 match format2:
     case "xml":
-        pass
+        with open(args.file2, "w") as w_xml_file:
+            xmltodict.unparse({"root": data}, w_xml_file, pretty=True)
     case "json":
         with open(args.file2, "w") as w_json_file:
             json.dump(data, w_json_file, indent=4)
