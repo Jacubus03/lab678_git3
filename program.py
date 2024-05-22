@@ -9,7 +9,7 @@ args = parser.parse_args()
 format1 = args.file1.split("/")[-1].split("\\")[-1].split(".")[-1]
 format2 = args.file2.split("/")[-1].split("\\")[-1].split(".")[-1]
 
-if( not (os.path.isfile(args.file1) and os.path.isfile(args.file2)) ):
+if( not os.path.isfile(args.file1) ):
     print(f"{__file__.split("\\")[-1]}:", "error: Nazwa pliku nie istnieje")
     exit()
 if( not ((format1 == "xml" or format1 == "json" or format1 == "yml") and (format2 == "xml" or format2 == "json" or format2 == "yml")) ):
