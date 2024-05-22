@@ -48,4 +48,5 @@ match format2:
         with open(args.file2, "w") as w_json_file:
             json.dump(data, w_json_file, indent=4)
     case "yml":
-        pass
+        with open(args.file2, "w") as w_yaml_file:
+            yaml.dump(data, w_yaml_file, sort_keys=False)
