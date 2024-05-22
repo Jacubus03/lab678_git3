@@ -29,7 +29,17 @@ match format1:
             with open(args.file1, "r") as r_json_file:
                 data = json.load(r_json_file)
         except ValueError as err:
-            print(args.file1.split("/")[-1], err)
+            print(f"{args.file1.split("/")[-1]}:", err)
             exit()
+    case "yml":
+        pass
+
+
+match format2:
+    case "xml":
+        pass
+    case "json":
+        with open(args.file2, "w") as w_json_file:
+            json.dump(data, w_json_file, indent=4)
     case "yml":
         pass
