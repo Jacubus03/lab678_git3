@@ -51,7 +51,7 @@ match format1:
             with open(args.file1, "r") as r_yaml_file:
                 data = yaml.safe_load(r_yaml_file)
         except yaml.YAMLError as err:
-            print(f"args.file1.split("/")[-1].split(r'\')[-1]}:", err)
+            print(f"{args.file1.split("/")[-1].split(r'\')[-1]}:", err)
             exit()
 
 
