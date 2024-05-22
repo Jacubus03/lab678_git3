@@ -1,6 +1,7 @@
 import argparse
 import os.path
 import json
+import yaml
 
 parser = argparse.ArgumentParser(description="Convert file formats.")
 parser.add_argument("file1")
@@ -32,7 +33,12 @@ match format1:
             print(f"{args.file1.split("/")[-1]}:", err)
             exit()
     case "yml":
-        pass
+        try:
+            with open(args.file1, "r") as r_yaml_file:
+                data = yaml.safe_load(r_yaml_file)
+        except yaml.YAMLError as err:
+            print(f"{args.file1.split("/")[-1]}:", err)
+            exit()
 
 
 match format2:
