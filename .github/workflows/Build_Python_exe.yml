@@ -1,0 +1,19 @@
+name: Build-Python-exe
+
+on:
+  schedule:
+    - cron: "50 4 * * 1"
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - run: installResources.sh
+      - run: pyinstaller --onefile program.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: program
+          path: dist/program.exe
