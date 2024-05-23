@@ -12,8 +12,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - run: Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-      - run: choco upgrade python -y
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
       - run: python --version
       - run: sh ./installResources.sh
       - run: pyinstaller.exe --onefile program.py
