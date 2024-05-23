@@ -14,15 +14,14 @@ args = parser.parse_args()
 format1 = args.file1.split("/")[-1].split("\\")[-1].split(".")[-1]
 format2 = args.file2.split("/")[-1].split("\\")[-1].split(".")[-1]
 
-current_file_name = __file__.split('\\')[-1]
 if( not os.path.isfile(args.file1) ):
-    print(f"{current_file_name}:", "error: Nazwa pliku nie istnieje")
+    print(f"{__file__.split("\\")[-1]}:", "error: Nazwa pliku nie istnieje")
     exit()
 if( not ((format1 == "xml" or format1 == "json" or format1 == "yml") and (format2 == "xml" or format2 == "json" or format2 == "yml")) ):
-    print(f"{current_file_name}:", "error: Nie wspierane rozszerzenie pliku")
+    print(f"{__file__.split("\\")[-1]}:", "error: Nie wspierane rozszerzenie pliku")
     exit()
 if( len(args.file1.split("/")[-1].split("\\")[-1].split(".")) == 1 or len(args.file1.split("/")[-1].split("\\")[-1].split(".")) == 1 ):
-    print(f"{current_file_name}:", "error: Nie wspierane rozszerzenie pliku")
+    print(f"{__file__.split("\\")[-1]}:", "error: Nie wspierane rozszerzenie pliku")
     exit()
 
 
@@ -32,28 +31,27 @@ def postprocessor(path, key, value):
     except (ValueError, TypeError):
         return key, value
 
-file1_name = args.file1.split('/')[-1].split('\\')[-1]
 match format1:
     case "xml":
         try:
             with open(args.file1, "r") as r_xml_file:
                 data = list(xmltodict.parse(r_xml_file.read(), postprocessor=postprocessor).values())[0]
         except xml.parsers.expat.ExpatError as err:
-            print(f"{file1_name}:", err)
+            print(f"{args.file1.split("/")[-1].split("\\")[-1]}:", err)
             exit()
     case "json":
         try:
             with open(args.file1, "r") as r_json_file:
                 data = json.load(r_json_file)
         except ValueError as err:
-            print(f"{file1_name}:", err)
+            print(f"{args.file1.split("/")[-1].split("\\")[-1]}:", err)
             exit()
     case "yml":
         try:
             with open(args.file1, "r") as r_yaml_file:
                 data = yaml.safe_load(r_yaml_file)
         except yaml.YAMLError as err:
-            print(f"{file1_name}:", err)
+            print(f"{args.file1.split("/")[-1].split("\\")[-1]}:", err)
             exit()
 
 
